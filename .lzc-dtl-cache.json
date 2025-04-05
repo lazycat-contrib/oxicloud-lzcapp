@@ -1,0 +1,45 @@
+{
+  "name": "OxiCloud",
+  "package": "cloud.lazycat.app.oxicloud",
+  "description": "NextCloud 的轻量级替代品",
+  "homepage": "https://github.com/DioCrafts/OxiCloud",
+  "author": "DioCrafts",
+  "app_features": [
+    "background_task",
+    "public_path"
+  ],
+  "subdomain": "oxicloud",
+  "version": "0.0.1",
+  "public_paths": [
+    "/"
+  ],
+  "iconPath": "icon.png",
+  "composePath": "docker-compose.yml",
+  "unsupported_platforms": [],
+  "lastRouteType": "from_compose",
+  "port_mappings": {
+    "oxicloud_8086_8086": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    },
+    "oxicloud_8085_8085": {
+      "use": false
+    }
+  },
+  "image_docker.hlmirror.com_postgres_17.4-alpine": {
+    "originalImage": "docker.hlmirror.com/postgres:17.4-alpine",
+    "pushTarget": "none"
+  },
+  "postgres_volume_pg_data_/var/lib/postgresql/data_action": "emptyDir",
+  "postgres_volume_/var/lib/postgresql/data_location": "app_data",
+  "postgres_volume_/docker-entrypoint-initdb.d/10-schema.sql_action": "ignore",
+  "oxicloud_build_or_image": "image",
+  "image_docker.hlmirror.com_atareao_oxicloud_latest": {
+    "originalImage": "docker.hlmirror.com/atareao/oxicloud:latest",
+    "pushTarget": "none"
+  },
+  "oxicloud_volume_storage_data_/app/storage_action": "emptyDir",
+  "oxicloud_volume_/app/storage_location": "app_data"
+}
