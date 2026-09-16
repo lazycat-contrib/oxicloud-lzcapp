@@ -7,11 +7,10 @@ application:
   upstreams:
     - location: /
       backend: http://oxicloud:8086/
-
 services:
   postgres:
-    # upstream: postgres:17.4-alpine
-    image: postgres:17.4-alpine
+    # upstream: library/postgres:17.11-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:0e37403b15ba58a3
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
@@ -23,10 +22,9 @@ services:
       test:
         - CMD-SHELL
         - pg_isready -U postgres
-
   oxicloud:
-    # upstream: atareao/oxicloud:latest
-    image: atareao/oxicloud:latest
+    # upstream: atareao/oxicloud:latest@sha256:bbfb8a0e832f8f6efb952f6879cf1d171696a655ce744bfd355f5affb7177038
+    image: registry.lazycat.cloud/czyt/atareao/oxicloud:72db5cd00a7efdf3
     environment:
       - OXICLOUD_DB_CONNECTION_STRING=postgres://postgres:{{ stable_secret "db_password" }}@postgres/oxicloud
     depends_on:
