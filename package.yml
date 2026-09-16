@@ -1,0 +1,14 @@
+package: cloud.lazycat.app.oxicloud
+version: 0.0.1
+name: OxiCloud
+description: "NextCloud 的轻量级替代品"
+min_os_version: "1.5.0"
+homepage: https://github.com/DioCrafts/OxiCloud
+author: DioCrafts
+locales:
+  zh:
+    description: "NextCloud 的轻量级替代品"
+    name: OxiCloud
+  en:
+    description: "A lightweight alternative to NextCloud"
+    name: OxiCloud

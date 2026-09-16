@@ -1,0 +1,35 @@
+application:
+  subdomain: oxicloud
+  background_task: true
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://oxicloud:8086/
+
+services:
+  postgres:
+    # upstream: postgres:17.4-alpine
+    image: postgres:17.4-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
+      - POSTGRES_DB=oxicloud
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+      - /lzcapp/pkg/content:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+
+  oxicloud:
+    # upstream: atareao/oxicloud:latest
+    image: atareao/oxicloud:latest
+    environment:
+      - OXICLOUD_DB_CONNECTION_STRING=postgres://postgres:{{ stable_secret "db_password" }}@postgres/oxicloud
+    depends_on:
+      - postgres
+    binds:
+      - /lzcapp/var/storage:/app/storage
