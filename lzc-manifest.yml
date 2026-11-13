@@ -9,8 +9,8 @@ application:
       backend: http://oxicloud:8086/
 services:
   postgres:
-    # upstream: library/postgres:17.11-alpine
-    image: registry.lazycat.cloud/czyt/library/postgres:0e37403b15ba58a3
+    # upstream: library/postgres:17.12-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:324ee79228b158c1
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
